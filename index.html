@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harrison’s PvP | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --google-bg: #1E1E1E;
+            --google-surface: #2D2E30;
+            --google-blue: #8AB4F8;
+            --google-green: #81C995;
+            --google-red: #F28B82;
+            --text-main: #E8EAED;
+            --text-secondary: #9AA0A6;
+            --border: #3C4043;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--google-bg);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 280px;
+            background-color: var(--google-surface);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .nav-header {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--google-blue);
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 24px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: background 0.2s;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(138, 180, 248, 0.1);
+            color: var(--google-blue);
+        }
+
+        /* Main Content Area */
+        main {
+            margin-left: 280px;
+            flex-grow: 1;
+            padding: 48px;
+            max-width: 1200px;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Google-Style Card Typography */
+        h1 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--google-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card h3 {
+            font-family: 'Google Sans', sans-serif;
+            margin-bottom: 12px;
+            color: var(--google-blue);
+        }
+
+        /* Connection Page Style */
+        .ip-container {
+            background: #111;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--google-blue);
+            margin-top: 20px;
+        }
+
+        .ip-text {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        /* Rules List */
+        .rule-list {
+            list-style: none;
+        }
+
+        .rule-list li {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 20px;
+        }
+
+        .rule-list li b { color: var(--google-red); }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            nav { width: 80px; padding: 24px 10px; }
+            .nav-text { display: none; }
+            main { margin-left: 80px; padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-header">
+            <i class="fas fa-shield-halved"></i>
+            <span class="nav-text">Harrison PvP</span>
+        </div>
+        <a class="nav-item active" onclick="showPage('home')">
+            <i class="fas fa-home"></i><span class="nav-text">Overview</span>
+        </a>
+        <a class="nav-item" onclick="showPage('about')">
+            <i class="fas fa-info-circle"></i><span class="nav-text">About Server</span>
+        </a>
+        <a class="nav-item" onclick="showPage('rules')">
+            <i class="fas fa-gavel"></i><span class="nav-text">Safety & Rules</span>
+        </a>
+        <a class="nav-item" onclick="showPage('connect')">
+            <i class="fas fa-plug"></i><span class="nav-text">Connection Info</span>
+        </a>
+        <a class="nav-item" onclick="showPage('codes')">
+            <i class="fas fa-ticket-alt"></i><span class="nav-text">Reward Codes</span>
+        </a>
+    </nav>
+
+    <main>
+        <div id="home" class="page active">
+            <h1>Server Overview</h1>
+            <p class="subtitle">Welcome back to the frontlines of Harrison’s PvP.</p>
+            
+            <div class="card">
+                <h3>Live Status</h3>
+                <p>The server is currently <b>Online</b>. All systems are operational. Seasonal leaderboards reset in 14 days.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div class="card">
+                    <i class="fas fa-bolt" style="color: var(--google-blue); margin-bottom: 10px;"></i>
+                    <h3>Peak Performance</h3>
+                    <p>Our infrastructure is optimized for sub-20ms latency, ensuring your hits register exactly when they should.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-user-shield" style="color: var(--google-green); margin-bottom: 10px;"></i>
+                    <h3>Anti-Cheat 4.0</h3>
+                    <p>New heuristics engine deployed to keep combat 100% fair and competitive.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="about" class="page">
+            <h1>About Harrison’s PvP</h1>
+            <p class="subtitle">Redefining competitive Minecraft since 2024.</p>
+            
+            <div class="card">
+                <h3>Our Vision</h3>
+                <p>Harrison's PvP was built out of a frustration with "Pay-to-Win" servers. Our mission is simple: create a space where your rank is determined by your CPS, your aim, and your strategy—not your wallet.</p>
+            </div>
+            <div class="card">
+                <h3>The Technical Specs</h3>
+                <p>Running on dedicated hardware with 128GB RAM and an AMD Ryzen 9 processor. We host daily tournaments with zero lag spikes, supported by a global CDN to prevent DDoS attacks.</p>
+            </div>
+        </div>
+
+        <div id="rules" class="page">
+            <h1>Safety & Guidelines</h1>
+            <p class="subtitle">Help us maintain a clean and competitive environment.</p>
+            
+            <div class="card">
+                <ul class="rule-list">
+                    <li><b>01</b> <span><b>Fair Play:</b> Any use of hacked clients, macro scripts, or hardware exploits will result in a permanent HWID ban.</span></li>
+                    <li><b>02</b> <span><b>Respect:</b> Harassment, hate speech, or toxicity in global chat is not tolerated. Keep the rivalry on the battlefield.</span></li>
+                    <li><b>03</b> <span><b>Exploits:</b> Map glitching or "combat logging" to save your items is strictly forbidden and punishable by inventory wipes.</span></li>
+                    <li><b>04</b> <span><b>Impersonation:</b> Do not pretend to be Staff or Harrison. Verify staff members by their [STAFF] prefix.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="connect" class="page">
+            <h1>Connection Portal</h1>
+            <p class="subtitle">Use the credentials below to join the battle.</p>
+            
+            <div class="card" style="text-align: center;">
+                <p>Server Address (IP)</p>
+                <div class="ip-container">
+                    <div class="ip-text">PVP.HARRISON.COM</div>
+                </div>
+                <p style="margin-top: 20px; color: var(--text-secondary);">Compatible Versions: 1.8.9 through 1.20+</p>
+            </div>
+        </div>
+
+        <div id="codes" class="page">
+            <h1>Reward Center</h1>
+            <p class="subtitle">Redeem these strings in-game for exclusive kits and boosts.</p>
+            
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding: 15px 0;">
+                    <span>WELCOME2026</span>
+                    <span style="color: var(--google-green);">ACTIVE</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding: 15px 0;">
+                    <span>PVPBOOST</span>
+                    <span style="color: var(--google-green);">ACTIVE</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+                    <span>FIGHTER</span>
+                    <span style="color: var(--google-red);">EXPIRED</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update Nav styling
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
